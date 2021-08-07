@@ -1,0 +1,25 @@
+body {
+    background-color: #032149;
+
+    .app-wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+        margin: 0 auto;
+        align-items: center;
+        justify-content: center;
+        font-size: calc(10px + 1vmin);
+        color: white;
+
+        a {
+            color: #61dafb;
+            text-decoration: none;
+        }
+
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+    }
+}
