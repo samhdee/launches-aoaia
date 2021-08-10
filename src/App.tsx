@@ -1,22 +1,36 @@
-import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React, { useContext } from "react";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
-import Home from "./app/home";
 import Header from "./blocks/header";
+import PickBirthdate from "./app/pick-birthdate";
+import SeeLaunches from "./app/pick-birthdate";
 
 import "./assets/scss/app.scss";
 
-function App() {
+const App: React.FC = () => {
     return (
         <Router>
             <main className="app-wrapper">
                 <Header />
 
-                <Route path="/" component={Home} />
-                <Route path="/see-launches" component={Home} />
+                <Switch>
+                    <Route exact path="/" component={PickBirthdate} />
+                    <Route exact path="/see-launches" component={SeeLaunches} />
+                    <Route component={NotFound} />
+                </Switch>
             </main>
         </Router>
     );
+}
+
+const NotFound: React.FC = () => {
+    const birthdate = localStorage.getItem('birthdate');
+
+    if (birthdate) {
+        return <Redirect to="/see-launches" />
+    } else {
+        return <Redirect to="/" />
+    }
 }
 
 export default App;
