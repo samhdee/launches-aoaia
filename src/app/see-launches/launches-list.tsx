@@ -3,9 +3,13 @@ import format from "date-fns/format"
 
 const LaunchesList: React.FC<{launch: LaunchProps}> = ({ launch }) => {
     return (
-        <li>
-            {format(new Date(launch.net), "dd/MM/yyyy")} : {launch.name} - {launch.status.name}
-        </li>
+        <section className="launch-tile">
+            <h2>
+                <time dateTime={launch.net}>{format(new Date(launch.net), "dd/MM/yyyy")}</time>
+            </h2>
+
+            <p>{launch.name} - {launch.status.name}</p>
+        </section>
     );
 }
 

@@ -20,16 +20,20 @@ export default function Header() {
     return (
         <header className="app-header">
             {authContext.isLoggedIn &&
-                <Fragment>
+                <div id="header-wrapper">
                     {location.pathname !== "/" &&
-                        <div>
+                        <div id="birthdate-info">
                             {authContext.formattedBirthdate}
-                            <button onClick={editBirthdate}>Modifier</button>
+                            <button id="edit-birthdate" onClick={editBirthdate}>Modifier</button>
                         </div>
                     }
 
                     <nav>
                         <ul>
+                            <li>
+                                <Link to="/">Home</Link>
+                            </li>
+
                             <li>
                                 <Link to="/see-launches">Voir les lancements</Link>
                             </li>
@@ -39,7 +43,7 @@ export default function Header() {
                             </li>
                         </ul>
                     </nav>
-                </Fragment>
+                </div>
             }
         </header>
     );

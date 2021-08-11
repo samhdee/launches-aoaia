@@ -5,6 +5,8 @@ import Launches from "../../services/launches";
 
 import LaunchesList from "./launches-list";
 
+import "../../assets/scss/launches.scss";
+
 const SeeLaunches: React.FC = () => {
     const [isLoading, setLoading] = useState(true);
     const [filters, setFilters] = useState(null);
@@ -33,9 +35,12 @@ const SeeLaunches: React.FC = () => {
     }, [isLoading, authContext.birthdate]);
 
     return (
-        <section>
+        <section id="launches-list-wrapper">
+            <h1>Lancements</h1>
+
             {!isLoading && <p>Résultats : {count}</p>}
-            {results.map((item, index)=>{
+
+            {results.map((item, index) => {
                 return <LaunchesList key={index} launch={item} />
             })}
         </section>

@@ -1,16 +1,39 @@
-.app-header {
+header.app-header {
     position: fixed;
     top: 0;
-    width: 70%;
-    margin: 0 auto;
+    width: 100%;
+    background-color: #021733;
+    font-size: 0.9em;
     z-index: 100;
 
-    nav {
-        ul {
-            list-style: none;
+    div#header-wrapper {
+        display: flex;
+        width: 70%;
+        margin: 0 auto;
+        padding: 10px;
+
+        div, nav {
+            flex-direction: row;
+        }
+
+        div#birthdate-info {
+            justify-content: flex-start;
+
+            button#edit-birthdate {
+                margin-left: 10px;
+                padding: 4px 5px;
+                background-color: #ccc;
+                border: 1px solid #333;
+                border-radius: 3px;
+            }
+        }
+
+        nav {
+            justify-content: flex-end;
 
             li {
                 display: inline-block;
+                margin-left: 10px;
             }
         }
     }

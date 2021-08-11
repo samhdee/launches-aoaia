@@ -1,5 +1,6 @@
 body {
     background-color: #032149;
+    font-size: 100%;
 
     .app-wrapper {
         min-height: 100vh;
@@ -7,17 +8,30 @@ body {
         flex-direction: column;
         width: 70%;
         margin: 0 auto;
+        padding: 45px 0;
         align-items: center;
         justify-content: center;
-        font-size: calc(10px + 1vmin);
         color: white;
 
+        h1, h2 {
+            margin: 0;
+        }
+
+        p {
+            margin: .5em 0;
+        }
+
         a {
-            color: #61dafb;
+            color: #6caaf9;
             text-decoration: none;
         }
 
+        a:hover {
+            color: #ccc8c1;
+        }
+
         ul {
+            margin: 0;
             padding: 0;
             list-style: none;
         }
