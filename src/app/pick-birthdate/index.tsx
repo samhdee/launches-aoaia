@@ -1,25 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 
 import DatePicker, { registerLocale } from "react-datepicker";
 import fr from "date-fns/locale/fr";
 import format from "date-fns/format";
 
+import AuthContext from "../../contexts/auth";
+
 import "react-datepicker/dist/react-datepicker.css";
 
 const PickBirthdate: React.FC = () => {
-    const birthdate = localStorage.getItem('birthdate');
-    let birthdateTimestamp = null;
-
-    if (birthdate) {
-        birthdateTimestamp = Date.parse(birthdate);
-    }
-
-    const [date, setDate] = useState<Date | null>(birthdateTimestamp ? new Date(birthdateTimestamp) : null);
+    const authContext = useContext(AuthContext);
+    const [date, setDate] = useState<Date | null>(null);
+    const [error, setError] = useState('');
     registerLocale('fr', fr);
+
+    useEffect(() => {
+        if (authContext.isLoggedIn) {
+            setDate(authContext.birthdate);
+        } else {
+            setDate(null);
+        }
+    }, [authContext.isLoggedIn, authContext.birthdate]);
 
     const handleEdit = (e: any) => {
         setDate(null);
+        localStorage.clear();
+        authContext.setLoggedIn(false);
     }
 
     const handleChange = (date: Date | null) => {
@@ -32,21 +39,28 @@ const PickBirthdate: React.FC = () => {
 
         if (pickedDate instanceof Date) {
             localStorage.setItem("birthdate", pickedDate.toISOString());
+            authContext.setFormattedBirthdate(format(pickedDate, "dd/MM/yyyy"));
+            authContext.setBirthdate(pickedDate);
+            authContext.setLoggedIn(true);
             return <Redirect to="/see-launches" />;
+        } else {
+            setError('Date invalide');
         }
     };
 
-    if (date) {
+    if (authContext.isLoggedIn) {
         return (
-            <section>
-                <p>{format(date, "dd/MM/yyyy")}</p>
+            <section id="pickdate-wrapper">
+                <p>{authContext.formattedBirthdate}</p>
                 <button onClick={handleEdit}>Changer</button>
             </section>
         );
     }
 
     return (
-        <section>
+        <section id="pickdate-wrapper">
+            {error && <p className="error-message">{error}</p>}
+
             <form onSubmit={handleSubmit}>
                 <p>Indiquez votre date de naissance :</p>
 
