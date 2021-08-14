@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useContext, Fragment } from "react";
+import { useLocation, Link } from "react-router-dom";
 
 import AuthContext from "../contexts/auth";
 
@@ -10,20 +10,36 @@ export default function Header() {
     const authContext = useContext(AuthContext);
     const editBirthdate = () => {};
 
-    switch (location.pathname) {
-        case "/":
-        default:
-
-            break;
-    }
+    const logout = () => {
+        localStorage.clear();
+        authContext.setLoggedIn(false);
+        authContext.setBirthdate(null);
+        authContext.setFavourites(null);
+    };
 
     return (
         <header className="app-header">
-            {authContext.isLoggedIn && location.pathname !== "/" &&
-                <div>
-                    {authContext.formattedBirthdate}
-                    <button onClick={editBirthdate}>Modifier</button>
-                </div>
+            {authContext.isLoggedIn &&
+                <Fragment>
+                    {location.pathname !== "/" &&
+                        <div>
+                            {authContext.formattedBirthdate}
+                            <button onClick={editBirthdate}>Modifier</button>
+                        </div>
+                    }
+
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to="/see-launches">Voir les lancements</Link>
+                            </li>
+
+                            <li>
+                                <button onClick={logout}>Logout</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </Fragment>
             }
         </header>
     );
