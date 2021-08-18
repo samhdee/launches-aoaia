@@ -9,6 +9,9 @@ export default class Launches
     {
         const date = new Date(userBirthdate);
 
-        return axios.get(`${API_URL_DEV}/?window_start__gt=` + startOfYear(date).toISOString() + "&window_start__lt=" + endOfYear(date).toISOString());
+        return axios.get(`${API_URL_DEV}/?`
+            + 'window_start__gt=' + startOfYear(date).toISOString()
+            + "&window_start__lt=" + endOfYear(date).toISOString()
+        );
     }
 }

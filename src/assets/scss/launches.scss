@@ -1,4 +1,6 @@
 #launches-list-wrapper {
+    width: 50%;
+
     h1 {
         font-variant: small-caps;
         margin: 1.5em 0 .75em -.5em;
@@ -18,16 +20,37 @@
             background-color: #065BC9;
         }
 
-        h2 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            padding: .2em .5em;
-            background-color: #039196;
-            border-top-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            font-size: 1em;
-            margin-bottom: 1em;
+        header {
+            time {
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding: .2em .5em;
+                background-color: #039196;
+                border-top-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        }
+
+        .tile-content {
+            display: grid;
+            grid-template-areas: 'launch-info launch-image';
+            grid-auto-columns: calc(100% - 150px);
+
+            .launch-info {
+                display: grid;
+                grid-area: 'launch-info';
+
+                h2 {
+                    font-size: 1em;
+                    margin: 1em 0;
+                }
+            }
+
+            .launch-image {
+                display: grid;
+                grid-area: 'launch-image';
+            }
         }
     }
 }

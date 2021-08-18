@@ -36,8 +36,12 @@ body {
             list-style: none;
         }
 
-        #pickdate-wrapper {
-            text-align: center;
+        button {
+            padding: 4px 5px;
+            background-color: #ccc;
+            border: 1px solid #333;
+            border-radius: 3px;
+            cursor: pointer;
         }
     }
 }
