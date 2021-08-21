@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import getWeek from "date-fns/getWeek";
 
 import AuthContext from "../../contexts/auth";
 import Launches from "../../services/launches";
@@ -43,9 +44,16 @@ const SeeLaunches: React.FC = () => {
     const formatLaunchInfo = (item: any) => {
         return {
             name: item.name,
-            date: item.net,
+            net: {
+                isoString: item.date,
+                date: new Date(item.net),
+            },
             image: item.image,
-            status: item.status.name,
+            status: {
+                name: item.status.name,
+                slug: item.status.abbrev,
+                failReason: item.failReason,
+            },
             mission: {
                 name: item.name,
                 description: item.description,
@@ -54,6 +62,9 @@ const SeeLaunches: React.FC = () => {
             pad: {
                 name: item.pad.name,
                 mapImage: item.pad.location.map_image,
+                location: item.pad.location.name,
+                latitude: item.pad.latitude,
+                longitude: item.pad.longitude,
                 countryCode: item.pad.location.map_image,
             },
             provider: item.launch_services_provider && {

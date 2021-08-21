@@ -1,12 +1,23 @@
 interface LaunchProps {
     name: string,
-    date: string,
-    image: URL,
-    status: string,
+    net: DateProps,
+    image: string,
+    status: StatusProps,
     mission: MissionProps | null,
     rocket: string,
     pad: PadProps | null,
     provider: ProviderProps | null,
+}
+
+interface DateProps {
+    isoString: string,
+    date: Date
+}
+
+interface StatusProps {
+    name: string,
+    slug: string,
+    failReason: string,
 }
 
 interface MissionProps {
@@ -17,6 +28,9 @@ interface MissionProps {
 interface PadProps {
     name: string,
     mapImage: string,
+    location: string,
+    latitude: string,
+    longitude: string,
     countryCode: string,
 }
 

@@ -3,6 +3,8 @@ import { createContext } from 'react';
 const defaultState: AuthProps = {
     isLoggedIn: false,
     setLoggedIn: () => {},
+    isEditing: false,
+    setEditing: () => {},
     birthdate: null,
     setBirthdate: () => {},
     formattedBirthdate: '',

@@ -53,7 +53,7 @@ const Routes: React.FC = () => {
 
     return (
         <Router>
-            <main className="app-wrapper">
+            <main id="app-wrapper">
                 <Header />
 
                 <Switch>

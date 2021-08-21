@@ -8,41 +8,46 @@ import "../assets/scss/header.scss";
 export default function Header() {
     let location = useLocation();
     const authContext = useContext(AuthContext);
-    const editBirthdate = () => {};
 
-    const logout = () => {
+    const edit = () => {
         localStorage.clear();
         authContext.setLoggedIn(false);
         authContext.setBirthdate(null);
         authContext.setFavourites(null);
     };
 
+    const homeLink = location.pathname !== "/"
+        ? <Link to="/">Home</Link>
+        : "Home";
+    const launcheslink = location.pathname !== "/see-launches"
+        ? <Link to="/see-launches">Voir les lancements</Link>
+        : "Voir les lancements";
+
     return (
         <header className="app-header">
             {authContext.isLoggedIn &&
                 <div id="header-wrapper">
-                    {location.pathname !== "/" &&
-                        <div id="birthdate-info">
-                            {authContext.formattedBirthdate}
-                            <button id="edit-birthdate" onClick={editBirthdate}>Modifier</button>
-                        </div>
-                    }
-
                     <nav>
                         <ul>
                             <li>
-                                <Link to="/">Home</Link>
+                                {homeLink}
                             </li>
 
                             <li>
-                                <Link to="/see-launches">Voir les lancements</Link>
+                                {launcheslink}
                             </li>
 
                             <li>
-                                <button onClick={logout}>Logout</button>
                             </li>
                         </ul>
                     </nav>
+
+                    {location.pathname !== "/" &&
+                        <div id="birthdate-info">
+                            {authContext.formattedBirthdate}
+                            <button id="edit-birthdate" onClick={edit}>Modifier</button>
+                        </div>
+                    }
                 </div>
             }
         </header>

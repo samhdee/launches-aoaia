@@ -1,25 +1,59 @@
-import React from "react";
-import format from "date-fns/format"
+import React, { useEffect, useContext, useState, Fragment } from "react";
+import Modal from "react-modal";
 
-const LaunchTile: React.FC<{launch: LaunchProps}> = ({ launch }) => {
+import { format, getWeek } from "date-fns"
+
+import AuthContext from "../../contexts/auth";
+import LaunchDetails from "./launch-details";
+
+const LaunchTile: React.FC<{ launch: LaunchProps }> = ({ launch }) => {
+    const [showModal, setShowModal] = useState(false);
+
+    const imageName = launch.image.substring(launch.image.lastIndexOf('/') + 1);
+    const authContext = useContext(AuthContext);
+    let tileClassName = "launch-tile";
+    let closenessDegree = '';
+
+    if (authContext.birthdate instanceof Date)
+        if (authContext.birthdate === launch.net.date) {
+            tileClassName += " exact";
+        } else if (getWeek(authContext.birthdate) === getWeek(launch.net.date)) {
+            tileClassName += " close";
+    }
+
+    const showLaunchImage = () => {}
+
+    const showDetails = () => {
+        setShowModal(true);
+    }
+
+    const hideModal = () => {
+        setShowModal(false);
+    }
+
     return (
-        <section className="launch-tile">
-            <header>
-                <time dateTime={launch.date}>{format(new Date(launch.date), "dd/MM/yyyy")}</time>
-            </header>
+        <Fragment>
+            <section className={tileClassName} onClick={showDetails}>
+                <header>
+                    <time dateTime={launch.net.isoString}>
+                        {format(launch.net.date, "dd/MM/yyyy")}
+                    </time>
 
-            <div className="tile-content">
+                    <p
+                        className="launch-status {launch.status.slug.toLowerCase()}"
+                        title={launch.status.name}
+                    >
+                        {launch.status.slug}
+                    </p>
+                </header>
+
                 <div className="launch-info">
                     <h2>{launch.name}</h2>
-
-                    <p>{launch.status}</p>
                 </div>
+            </section>
 
-                <div className="launch-image">
-                    <img width="150" alt={launch.image.pathname.substring(launch.image.pathname.lastIndexOf('/') + 1)} src={launch.image.pathname} />
-                </div>
-            </div>
-        </section>
+            <LaunchDetails isModalOpen={showModal} hideModal={hideModal} launch={launch} />
+        </Fragment>
     );
 }
 

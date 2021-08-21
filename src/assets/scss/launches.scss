@@ -32,25 +32,40 @@
             }
         }
 
-        .tile-content {
+        .launch-info {
             display: grid;
-            grid-template-areas: 'launch-info launch-image';
-            grid-auto-columns: calc(100% - 150px);
+            grid-area: 'launch-info';
 
-            .launch-info {
-                display: grid;
-                grid-area: 'launch-info';
-
-                h2 {
-                    font-size: 1em;
-                    margin: 1em 0;
-                }
+            h2 {
+                font-size: 1em;
+                margin: 1em 0;
             }
+        }
 
-            .launch-image {
-                display: grid;
-                grid-area: 'launch-image';
+        .launch-image {
+            display: grid;
+            grid-area: 'launch-image';
+
+            figcaption {
+                max-width: 150px;
             }
         }
     }
+}
+
+.launch-details {
+    figure {
+        max-width: 70%;
+        margin: 10px auto;
+        text-align: center;
+
+        img {
+            border-radius: 3px;
+            border: 1px solid #ffffff;
+        }
+    }
+}
+
+.ReactModal__Body--open {
+    overflow: hidden;
 }
